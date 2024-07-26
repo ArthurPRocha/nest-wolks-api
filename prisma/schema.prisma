@@ -8,39 +8,40 @@ datasource db {
 }
 
 model Car {
-  id String @id @default(uuid()) @map("_id")
-
+  id        String   @id @default(uuid()) @map("_id")
   model     String   @unique
   year      String
   price     Float
   info      String
   image_url String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   userId    String
   user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("tb_cars")
 }
 
 model User {
-  id        String   @id @default(uuid()) @map("_id")
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cars      Car[]
-  questions   Question[]
+  id         String   @id @default(uuid()) @map("_id")
+  email      String   @unique
+  name       String?
+  password   String
+  answer     String
+  role       Int      @default(1)
+  cars       Car[]
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@map("tb_users")
 }
 
 model Question {
   id        String   @id @default(uuid()) @map("_id")
-  question  String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  question  String   @unique
+  users     User[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
