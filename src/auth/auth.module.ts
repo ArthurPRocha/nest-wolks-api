@@ -5,6 +5,7 @@ import { UserModule } from 'src/user/user.module';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { AuthService } from './auth.service';
 import { FileModule } from 'src/file/file.module';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { FileModule } from 'src/file/file.module';
     FileModule
   ],
   controllers: [AuthController],
-  exports: [AuthService],
-  providers: [AuthService],
+  exports: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard],
 })
 export class AuthModule {}

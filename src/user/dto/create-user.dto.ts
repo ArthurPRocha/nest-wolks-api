@@ -26,4 +26,8 @@ export class CreateUserDTO {
   @IsOptional()
   @IsEnum(Role)
   role: number;
+
+  @IsOptional()
+  anwser: string;
+  question: string;
 }

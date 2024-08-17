@@ -10,7 +10,7 @@ datasource db {
 model Car {
   id        String   @id @default(uuid()) @map("_id")
   model     String   @unique
-  year      String
+  year      Int
   price     Float
   info      String
   image_url String?
@@ -23,17 +23,17 @@ model Car {
 }
 
 model User {
-  id         String   @id @default(uuid()) @map("_id")
-  email      String   @unique
+  id         String    @id @default(uuid()) @map("_id")
+  email      String    @unique
   name       String?
   password   String
-  answer     String
-  role       Int      @default(1)
+  answer     String?
+  role       Int       @default(1)
   cars       Car[]
-  questionId String
-  question   Question @relation(fields: [questionId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  questionId String?
+  question   Question? @relation(fields: [questionId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   @@map("tb_users")
 }

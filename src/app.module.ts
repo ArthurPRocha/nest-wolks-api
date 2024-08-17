@@ -8,6 +8,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { CarModule } from './car/car.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -40,6 +42,8 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
     ]),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
+    CarModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [
