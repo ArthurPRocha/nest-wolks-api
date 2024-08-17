@@ -9,7 +9,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
-import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +16,6 @@ export class AuthService {
     private readonly JWTService: JwtService,
     private readonly prisma: PrismaService,
     private readonly userService: UserService,
-    private readonly mailer: MailerService,
   ) {}
 
   createToken(user: User) {
@@ -93,16 +91,7 @@ export class AuthService {
         audience: 'users',
       },
     );
-
-    await this.mailer.sendMail({
-      subject: 'Recuperação de Senha Wolks',
-      to: `${email}`,
-      template: 'forget',
-      context: {
-        token,
-      },
-    });
-    return true;
+    return token;
   }
 
   async reset(password: string, token: string) {
